@@ -24,7 +24,7 @@
         </div>
     </section>
 
-    <div class="intro-card">
+    <section class="intro-card">
         <div class="sub-title">
             <h4>Verner</h4>
         </div>
@@ -36,9 +36,12 @@
                 Experiencias llenas de color y texturas. Innovación y vibrante es el sello de mi trabajo.
             </p>
         </div>
-    </div>
-    <section class="3d-model">
     </section>
+
+    <section class="three-d-model">
+        <canvas id="scene"></canvas>
+    </section>
+
     <div class="expl-card">
         <div class="p1">
             <p> En un mundo dominado por lo lineal y lo predecible, decidí romper las reglas. </p>
@@ -126,6 +129,60 @@
     </section>
 </body>
 
+<script type="module">
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js";
+    import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/loaders/GLTFLoader.js";
+    import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/controls/OrbitControls.js";
+
+    // Escena, cámara, renderizador
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('scene'), antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x202020); // Fondo oscuro
+
+    // Luz ambiental
+    const light = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(light);
+
+    // 🚨 Aquí va tu código EXACTAMENTE COMO LO MANDASTE
+    const loader = new GLTFLoader();
+    loader.load('imgs/panton.glb', (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, 0, 0);
+        model.scale.set(20, 20, 20); // MUCHO más grande
+        scene.add(model);
+
+        camera.position.set(0, 0, 20); // Aleja para ver bien
+
+        // Luz direccional fuerte
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        directionalLight.position.set(10, 10, 10);
+        scene.add(directionalLight);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            model.rotation.y += 0.01; // Rotate
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    }, undefined, (error) => {
+        console.error("Error loading model:", error);
+    });
+
+    // Ajuste para cambiar tamaño si cambias tamaño de ventana
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+
 <style>
     body {
         margin: 0;
@@ -135,7 +192,6 @@
 
     .navbar {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
         height: 50px;
@@ -143,6 +199,7 @@
 
     nav {
         display: flex;
+        justify-content: space-between;
         width: 90%;
         margin-top: 20px;
         background-color: #F48C4A;
@@ -179,7 +236,7 @@
     .intro-card .sub-title {
         font-size: 20px;
         color: #802F36;
-        margin: -10px;
+        margin-bottom: -25px;
         padding: 0;
     }
 
@@ -187,6 +244,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        width: 30%;
         margin: 0;
         padding: 0;
     }
@@ -196,6 +254,20 @@
         color: #802F36;
         margin: 0;
         padding: 0;
+    }
+
+    .expl-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        margin-left: 200px;
+    }
+
+    .three-d-model canvas {
+        width: 100%;
+        height: 100vh;
+        display: block;
     }
 </style>
 
