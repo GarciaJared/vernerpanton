@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  height: 50px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 20px;
+  background-color: #F48C4A;
+}
+
+.ul-elements {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.lista {
+  display: flex;
+  list-style: none;
+  flex-direction: flex-start;
+}
+
+.txt-highlight {
+  display: flex;
+  padding-top: 20px;
+  padding-left: 25px;
+  font-size: large;
+}
+
+.intro-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: left;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+
+.intro-card .sub-title {
+  font-size: 20px;
+  color: #802F36;
+  margin-bottom: -25px;
+  padding: 0;
+}
+
+.intro-card .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 30%;
+  margin: 0;
+  padding: 0;
+}
+
+.card-title {
+  font-size: 50px;
+  color: #802F36;
+  margin: 0;
+  padding: 0;
+}
+
+.expl-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+
+.three-d-model canvas {
+  width: 100%;
+  height: 100vh;
+  display: block;
+}
